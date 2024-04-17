@@ -3,6 +3,8 @@ import { getProduct } from "../api/Product";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { Form, Button } from "react-bootstrap";
+import { addReview, getReviews } from "../api/review";
 
 const Div = styled.div`
     .product-info {
@@ -18,11 +20,26 @@ const Div = styled.div`
         }
     }
 
+    .review-add {
+        border: 1px solid gray;
+        margin-top: 20px;
+
+        input {
+            margin-bottom: 10px;
+        }
+        textarea{
+            resize: none;
+            margin-bottom: 10px;
+        }
+    }
 `;
+
 const Detail = () => {
     const [product, setProduct] = useState({});
     const {code} = useParams();
     const [user, setUser] = useState({});
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
 
     const info = useSelector((state) => {
         return state.user;
@@ -46,9 +63,21 @@ const Detail = () => {
         // console.log(info);
     }, []);
 
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
+    const reviewSubmit = async() => {
+        // form 태그를 사용하지 않고 보낼 때
+        const formData = new FormData();
+        formData.append("id", user.id);
+        formData.append("prodCode", code);
+
+        // 입력 받는 텍스트
+        formData.append("reviTitle");
+        formData.append("reviDesc");
+
+
+        formData.append("files");
+
+        await addReview(formData);
+    };
 
     return(
     <Div>
@@ -59,7 +88,14 @@ const Detail = () => {
                     <p>가격 : {product.price}</p>
                 </div>
         </div> 
-    </Div>)
+        <div className="review-add" >
+            <Form.Control type="file" multiple accept="image/*" />
+            <Form.Control type="text" placeholder="제목 작성"/>
+            <Form.Control as="textarea" placeholder="글 작성"/>
+            <Button onClick={reviewSubmit}>리뷰 작성</Button>
+        </div>
+    </Div>
+    )
 };
 
 export default Detail;
