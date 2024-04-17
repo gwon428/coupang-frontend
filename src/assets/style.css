@@ -67,7 +67,7 @@ header {
   flex: 1;
 }
 
-.header-main-top form>i,
+.header-main-top form>svg,
 .header-main-top form>button {
   position: absolute;
   font-size: 1.2rem;
@@ -75,7 +75,7 @@ header {
   line-height: 100%;
 }
 
-.header-main-top form>i {
+.header-main-top form>svg {
   top: 0;
   right: 30px;
   display: flex;
@@ -96,7 +96,7 @@ header {
   margin-left: 15px;
 }
 
-.header-main-icon i {
+.header-main-icon svg {
   color: #555;
   margin-bottom: 10px;
 }
@@ -133,7 +133,7 @@ header {
   object-fit: contain;
 }
 
-.header-main-bottom i {
+.header-main-bottom svg {
   cursor: pointer;
   background: white;
   width: 30px;
@@ -144,15 +144,17 @@ header {
   justify-content: center;
   align-items: center;
   z-index: 1;
+  width: 20px;
+  height: 20px;
 }
 
-.header-main-bottom i:first-child {
-  top: 0;
+.header-main-bottom svg:first-child {
+  top: 5px;
   left: 0;
 }
 
-.header-main-bottom i:last-child {
-  top: 0;
+.header-main-bottom svg:last-child {
+  top: 5px;
   right: 0;
 }
 
@@ -186,7 +188,7 @@ header {
   position: relative;
 }
 
-.category-item i:first-child {
+.category-item svg:first-child {
   font-size: 1.2rem;
   width: 40px;
   text-align: center;
@@ -196,7 +198,7 @@ header {
   flex: 1;
 }
 
-.category-item i:nth-child(3) {
+.category-item svg:nth-child(3) {
   font-size: 1.1rem;
   padding-right: 10px;
   display: none;
@@ -210,7 +212,7 @@ header {
   text-decoration: underline;
 }
 
-.category-item:hover i:nth-child(3) {
+.category-item:hover svg:nth-child(3) {
   display: block;
 }
 
@@ -370,7 +372,7 @@ section h2 {
   padding: 10px 0;
 }
 
-.category-menu i {
+.category-menu svg {
   font-size: 1.2rem;
   width: 40px;
   text-align: center;
