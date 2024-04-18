@@ -1,7 +1,10 @@
 import axios from "axios";
 
 // 토큰 localstorage에 담기
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
+const getToken = () => {
+    return localStorage.getItem("token");
+}
 
 // 인증이 필요없는 RESTful API 가져올 때 기본 루트
 const instance = axios.create({
@@ -11,10 +14,19 @@ const instance = axios.create({
 // 인증이 필요한 RESTful API 가져올 때 기본 루트
 const authorize = axios.create({
     baseURL: "http://localhost:8080/api/",
-    headers:{
-        Authorization: `Bearer ${token}`,
-    }
+    // headers:{
+    //     Authorization: `Bearer ${token}`,
+    // }
 });
+
+// 요청할 때 사용하겠다...? 머? [240418]
+authorize.interceptors.request.use((config) => {
+    const token = getToken();
+    if(token){{
+        config.headers.Authorization = `Bearer ${token}`;
+    }}
+    return config;
+})
 
 /*
 [POST] http://localhost:8080/api/review
@@ -33,3 +45,11 @@ export const addReview = async(data) => {
 export const getReview = async(code) => {
     return await instance.get("product/" + code + "/review");    
 };
+
+export const updateReview = async(data) => {
+    return authorize.put("review", data);
+}
+
+export const delReview = async(code) => {
+    return await authorize.delete("review/" + code);
+}
